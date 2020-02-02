@@ -1,0 +1,25 @@
+.magic-wrapper {
+    position: fixed;
+    left: 10px; 
+    bottom: 10px; 
+    display: block;     
+}
+
+.magic-wrapper .magic-button {
+    opacity: 0.5;
+    min-width: 100px;
+    height: 30px;
+    color: #fff; 
+    background-color: #1976d2; 
+    margin: 2px; 
+    border-radius: 10px;
+    outline: none;
+}
+
+.magic-wrapper .magic-button:hover {
+    opacity: 1;
+}
+
+.magic-wrapper .magic-button:active {
+    background-color: #0d47a1;
+}

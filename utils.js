@@ -2,7 +2,7 @@
 function autofill(pages, delayInMs) {
     'use strict';
 
-    const initAutoFill = () =>{  
+    const initAutoFill = () => {  
         reset();
     
         const page = getPage(pages);
@@ -57,15 +57,14 @@ function initFillFieldsFunc(delayInMs) {
 function createButtons(page, onClick) {
     const wrapper = document.createElement('div');
     wrapper.id = 'magicWrapper';
+    wrapper.className = 'magic-wrapper';
     document.body.appendChild(wrapper);
 
-    let horizontalPosition = 10;
     for (const [key, dataset] of Object.entries(page.datasets)) {
-        const button = htmlToElement(`<button id="magicBtn${key}" type="button" style="position: fixed; left: ${horizontalPosition}px; bottom: 10px; width: 100px; height: 30px">${dataset.buttonLabel}</button>`);
+        const button = htmlToElement(`<button id="magicBtn${key}" type="button" class="magic-button">${dataset.buttonLabel}</button>`);
         button.title = dataset.shortcut ? 'Shortcut: ' + dataset.shortcut.join(' + ') : 'Shortcut is not defined';
         button.onclick = () => onClick(dataset.data);
         wrapper.appendChild(button);
-        horizontalPosition +=110;
     }
 }
 
@@ -83,7 +82,14 @@ function initShortcuts(page, onMatch) {
             if (pressedKeys.has(e.key)) {
                 return;
             }
+
             pressedKeys.add(e.key);
+
+            if (pressedKeys.size === 2 && pressedKeys.has('b') && pressedKeys.has('v')) {
+                const wrapper = document.getElementById('magicWrapper');
+                wrapper.style.display = wrapper.style.display === 'block' ? 'none' : 'block';
+                return;
+            }
 
             Object.values(page.datasets).some(dataset => {
                 const isMatch = isShortcutMatch(dataset.shortcut, pressedKeys);
